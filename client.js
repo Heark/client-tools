@@ -13,4 +13,9 @@
                     channel,
                     " HA!, Kick him again."
                 );
+  funtion PMReceived(msg, channel, html);
+   client.network().sendChanMessage(
+                    channel,
+                    " You just recieved a PM!"
+                );
   
