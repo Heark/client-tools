@@ -24,7 +24,10 @@
     function disconnected();
   client.network().sendClientMessage(
                     channel,
-                    " You just recieved a PM!"
+                    " Client Disconnected! Trying to reconnect"
+                    client.reconnect();
+                    sys.stopEvent();
+       return;
                 );
     
                 
