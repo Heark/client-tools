@@ -57,7 +57,7 @@
         sys.stopEvent();
         var id = client.id(msg.substr(6));
         print("Tiers of " + msg.substr(6) + ": " + client.tiers(id) + ".");
-        if msg == "~relog"
+    } else if msg == "~relog"
         client.network().sendChanMessage(channel, "Relogging..." + i);
         
                             client.reconnect();
