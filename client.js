@@ -1,71 +1,50 @@
 // (C)opyright Heark
 // Special Thanks Coyotte508
-// Created 5/9/2014
-({
-        afterChannelMessage: function(
-            message, channel, html) {
-            if (message.indexOf(':') >=
-                0) {
-                msg = message.substr(
-                    message.indexOf(':') +
-                    2);
+// Created 12/21/2014
+        var today = new Date();
+        var h = today.getHours();
+        var m = today.getMinutes();
+        var s = today.getSeconds();
+        var time = h + ":" + m + ":" + s + " " +today;
+var clientBot = "Client:"
+print(clientBot+"Welcome to PO")
+print(clientBot+"It is "+time)
+    events = ({
+        beforeSendMessage: function(message, channel) {
+            var command = "",
+                commandData = "",
+                index = -1;
+
+            if (message.charAt(0) === "?") {
+                command = message.substr(1);
+                index   = command.indexOf(" ");
+
+                if (index != -1) {
+                    command     = command.substr(0, index);
+                    commandData = command.substr(index + 1);
+                }
+
+                command = command.toLowerCase();
+
+                // Commands go here
+                if (command == "reconnect"){
+                   print(clientBot+" reconnecting...")
+                sys.stopEvent();
+                client.reconnect();
+                }
+                if (command == "os"){
+                        print(clientBot+" The operating system you're using is: "+sys.os().toUpperCase());
+                }
+                if (command == "viewtiers"){
+                        print(clientBot+" The tiers in this server are "+client.getTierList());
+                }
+                if (command == "ranking"){
+                        var ranking = function (target, tar){
+                                var tar = command.substr(index + 2);
+                        client.seeRanking(tar)
+                        }
+                }
             }
-            // Auto Commands 
-            function playerKicked(msg, channel);
-            client.network().sendChanMessage(
-                channel,
-                " HA!, Kick him again."
-            );
-
-            function PMReceived(msg, channel, html);
-            client.network().sendChanMessage(
-                channel,
-                " You just recieved a PM!"
-            );
-
-            function disconnected();
-            client.network().sendClientMessage(
-                channel,
-                " Client Disconnected! Trying to reconnect"
-                client.reconnect(); sys.stopEvent();
-                return;
-            );
-
-            // User commands
-
+            // Insert more stuff at this point
         }
-        if (msg == "~sound") {
-            client.openSoundConfig();
-            sys.stopEvent();
-        } else if (msg == ".") {
-            sys.stopEvent();
-            for (var i = 1; i < 4; i++) {
-                client.network().sendChanMessage(channel, "This is a script test -- " + i);
-            }
-        } else if (msg.substr(0, 4) == "~id ") {
-            print("Id of " + msg.substr(4) + ": " + client.id(msg.substr(4)) + ".");
-            sys.stopEvent();
-        } else if (msg.substr(0, 6) == "~spam ") {
-            sys.stopEvent();
-            var id = client.id(msg.substr(6));
-            for (var i = 0; i < 10; i++) {
-                client.network().sendPM(id, "BLEH -- " + i);
-            }
-        } else if (msg == "~tiers") {
-            print("The tiers are: " + client.getTierList());
-            sys.stopEvent();
-        } else if (msg.substr(0, 6) == "~info ") {
-            sys.stopEvent();
-            var id = client.id(msg.substr(6));
-            print("Tiers of " + msg.substr(6) + ": " + client.tiers(id) + ".");
-        } else if msg == "~relog"
-        client.network().sendChanMessage(channel, "Relogging..." + i);
-
-        client.reconnect();
-        sys.stopEvent();
-        return;
-    }
-}
-
-
-})
+    })
